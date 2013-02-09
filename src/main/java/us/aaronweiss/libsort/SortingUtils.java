@@ -219,4 +219,42 @@ public class SortingUtils {
 			}
 		} while (swapped);
 	}
+	
+	/**
+	* Sorts an array in a similar way as Insertion Sort, but using Knuth gap sequences.
+	* Average case performance: Dependent on gap sequence used. With Knuth gap sequence, O(N^5/3).
+	* 
+	* @param toSort
+	              array to be sorted.
+	* @see http://en.wikipedia.org/wiki/Shellsort
+	*/
+	
+    	public static void sort( Comparable[] toSort ) {
+        
+        	int N = toSort.length;
+        
+        	int h = 1;
+        
+        	while( h < N / 3 )
+            		h = 3 * h + 1;
+        
+        	while( h >= 1 ) {
+            
+            		for( int i = h; i < N; i++ ) {
+                
+                		for( int j = i; j >= h && toSort[ j ].compareTo( toSort[ j - h ] ) == -1; j -= h ) {
+                    
+                    			Comparable temp = toSort[ j ];
+                    			toSort[ i ] = toSort[ j - h ];
+                    			toSort[ j - h ] = temp;
+                    
+                		}
+                    
+            		}
+            
+            		h /= 3;
+        	}
+
+    	}
+		
 }
