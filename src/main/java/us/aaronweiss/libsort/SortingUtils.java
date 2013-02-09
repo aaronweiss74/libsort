@@ -219,4 +219,34 @@ public class SortingUtils {
 			}
 		} while (swapped);
 	}
+	
+	/**
+	 * Sorts an array by scanning it to find the smallest element and putting it in the front.
+	 * Average case performance: O(N^2)
+	 * 
+	 * @param toSort
+	 * 		array to be sorted.
+	 * @see http://en.wikipedia.org/wiki/Selection_sort
+	 */
+	 public static void sort( Comparable[] toSort ) {
+        
+        	int N = toSort.length;
+        
+        	for( int i = 0; i < N; i++ ) {
+            
+            		int min = i;
+            
+            		for( int j = i + 1; j < N; j++ ) {
+                
+                		if( toSort[ j ].compareTo( toSort[ min ] ) == -1 )
+                    			min = j;
+            		}
+            
+            		Comparable temp = toSort[ i ];
+            		toSort[ i ] = toSort[ min ];
+            		toSort[ min ] = temp;
+            
+        	}
+
+    	}
 }
