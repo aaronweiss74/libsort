@@ -3,8 +3,9 @@ package us.aaronweiss.libsort;
 /**
  * A set of utilities for sorting 
  * 
- * @author Aaron
- *
+ * @author Aaron Weiss
+ * @version 1.0
+ * @since 2/7/13
  */
 public class SortingUtils {
 	/**

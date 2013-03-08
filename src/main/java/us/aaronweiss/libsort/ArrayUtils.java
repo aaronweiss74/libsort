@@ -4,7 +4,7 @@ package us.aaronweiss.libsort;
  * A set of core utilities for working with arrays.
  * 
  * @author Aaron Weiss
- * @version 1.0
+ * @version 1.1
  * @since 2/6/13
  */
 public class ArrayUtils {
@@ -132,8 +132,7 @@ public class ArrayUtils {
 	 *            the third array to add
 	 * @return the combined array of the three
 	 */
-	public static Object[] concatenate(Object[] firstArray,
-			Object[] secondArray, Object[] thirdArray) {
+	public static Object[] concatenate(Object[] firstArray, Object[] secondArray, Object[] thirdArray) {
 		return (concatenate(firstArray, concatenate(secondArray, thirdArray)));
 	}
 }
