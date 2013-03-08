@@ -220,4 +220,77 @@ public class SortingUtils {
 			}
 		} while (swapped);
 	}
+	
+	/**
+	 * Sort an array by scanning it to find the smallest element and to put it in the front.
+	 * Average case: O(N^2)
+	 * 
+	 * @param toSort
+	 *    		array to be sorted.
+	 * 
+	 * @see http://en.wikipedia.org/wiki/Selection_sort
+	 */
+	 
+	 public static void selectionsort( Comparable[] toSort ) {
+        
+        	int N = toSort.length;
+        
+        	for( int i = 0; i < N; i++ ) {
+            
+            		int min = i;
+            
+            		for( int j = i + 1; j < N; j++ ) {
+                
+                		if( toSort[ j ].compareTo( toSort[ min ] ) == -1 )
+                    			min = j;
+            		}
+            
+            	Comparable temp = toSort[ i ];
+            	toSort[ i ] = toSort[ min ];
+            	toSort[ min ] = temp;
+            
+        	}
+        
+        
+
+    	}
+    	
+    	/**
+    	 * Sorts an array similarly to Insertion Sort, but uses Knuth gap sequences.
+    	 * Average case: Dependent on gap seequences. With Knuth gap sequences, O(N^5/3)
+    	 * 
+    	 * @param toSort
+    	 * 		array to be sorted.
+    	 * 
+    	 * @see http://en.wikipedia.org/wiki/Shellsort
+    	 */
+    	 
+    	  public static Comparable[] shellsort( Comparable[] toSort ) {
+        
+        	int N = toSort.length;
+        
+        	int h = 1;
+        
+        	while( h < N / 3 )
+            		h = 3 * h + 1;
+        
+        	while( h >= 1 ) {
+            
+            		for( int i = h; i < N; i++ ) {
+                
+                		for( int j = i; j >= h && toSort[ j ].compareTo( toSort[ j - h ] ) == -1; j -= h ) {
+                    
+                    			Comparable temp = toSort[ j ];
+                    			toSort[ i ] = toSort[ j - h ];
+                   	 		toSort[ j - h ] = temp;
+                    
+                		}
+                    
+            		}
+            
+            		h /= 3;
+        	}
+   
+    	}
+
 }
