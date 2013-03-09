@@ -4,7 +4,7 @@ package us.aaronweiss.libsort;
  * A set of utilities for sorting 
  * 
  * @author Aaron Weiss
- * @version 1.0
+ * @version 1.4
  * @since 2/7/13
  */
 public class SortingUtils {
@@ -13,7 +13,7 @@ public class SortingUtils {
 	 * Average case performance: O(n²)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Bubble_sort
 	 */
 	public static void bubblesort(Sortable[] toSort) {
@@ -31,9 +31,9 @@ public class SortingUtils {
 	 * Average case performance: O(n log n)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @param stable
-	 *            whether or not to use a stable sort (unstable is faster)
+	 *			whether or not to use a stable sort (unstable is faster)
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 * @see http://en.wikipedia.org/wiki/Sorting_algorithm#Stability
 	 */
@@ -43,14 +43,14 @@ public class SortingUtils {
 		else
 			quicksort(toSort);
 	}
-	
+
 	/**
 	 * Sorts an array using a fast, stable divide-and-conquer technique.
 	 * Average case performance: O(n log n)
 	 * Note: slower than unstable quicksort
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @return the sorted array
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 * @see http://en.wikipedia.org/wiki/Sorting_algorithm#Stability
@@ -58,15 +58,14 @@ public class SortingUtils {
 	public static void stableQuicksort(Sortable[] toSort) {
 		toSort = quicksortStable(toSort);
 	}
-	
-	
+
 	/**
 	 * Sorts an array using a fast, stable divide-and-conquer technique.
 	 * Average case performance: O(n log n)
 	 * Note: slower than unstable quicksort
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @return the sorted array
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 * @see http://en.wikipedia.org/wiki/Sorting_algorithm#Stability
@@ -80,11 +79,11 @@ public class SortingUtils {
 		Sortable[] greater = new Sortable[0];
 		for (Sortable s : toSort) {
 			if (s.sortValue() <= pivot)
-				less = (Sortable[]) ArrayUtils.append(s, less);
+				less = toSortableArray(ArrayUtils.append(s, less));
 			else
-				greater = (Sortable[]) ArrayUtils.append(s, greater);
+				greater = toSortableArray(ArrayUtils.append(s, greater));
 		}
-		return (Sortable[]) ArrayUtils.concatenate(quicksortStable(less), pivotArray, quicksortStable(greater));
+		return toSortableArray(ArrayUtils.concatenate(quicksortStable(less), pivotArray, quicksortStable(greater)));
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class SortingUtils {
 	 * Average case performance: O(n log n)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 */
 	public static void quicksort(Sortable[] toSort) {
@@ -104,11 +103,11 @@ public class SortingUtils {
 	 * Average case performance: O(n log n)
 	 * 
 	 * @param startingIndex
-	 *            the leftmost index to sort from
+	 *          the leftmost index to sort from
 	 * @param endingIndex
-	 *            the rightmost index to sort to
+	 *          the rightmost index to sort to
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 */
 	private static void quicksort(int startingIndex, int endingIndex, Sortable[] toSort) {
@@ -124,13 +123,13 @@ public class SortingUtils {
 	 * Partitions an array for quicksort.
 	 * 
 	 * @param startingIndex
-	 *            the leftmost index of the partition
+	 *          the leftmost index of the partition
 	 * @param endingIndex
-	 *            the rightmost index of the partition
+	 *          the rightmost index of the partition
 	 * @param pivotIndex
-	 *            the index of the pivot value
+	 *          the index of the pivot value
 	 * @param toPartition
-	 *            the array to partition
+	 *          the array to partition
 	 * @return the partitioned array
 	 * @see http://en.wikipedia.org/wiki/Quicksort
 	 */
@@ -144,13 +143,13 @@ public class SortingUtils {
 		ArrayUtils.swap(storeIndex, endingIndex, toPartition);
 		return storeIndex;
 	}
-	
+
 	/**
 	 * Sorts an array by inserting unsorted elements into their proper positions.
 	 * Average case performance: O(n²)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Insertion_sort
 	 */
 	public static void insertionSort(Sortable[] toSort) {
@@ -163,17 +162,17 @@ public class SortingUtils {
 			toSort[holePosition] = valueToInsert;
 		}
 	}
-	
+
 	/**
 	 * Sorts an array by breaking it apart into smallest parts and merging them back together.
 	 * Average case performance: O(n log n) or O(n)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Merge_sort
 	 */
 	public static void mergeSort(Sortable[] toSort) {
-		if (toSort.length <= 1) 
+		if (toSort.length <= 1)
 			return;
 		Sortable[] left = new Sortable[0];
 		Sortable[] right = new Sortable[0];
@@ -184,15 +183,15 @@ public class SortingUtils {
 			ArrayUtils.append(toSort[i], right);
 		mergeSort(left);
 		mergeSort(right);
-		toSort = (Sortable[]) ArrayUtils.concatenate(left, right);	
+		toSort = toSortableArray(ArrayUtils.concatenate(left, right));
 	}
-	
+
 	/**
 	 * Sorts an array by scanning through it and moving the elements to a sorted position.
 	 * Average case performance: O(n²)
 	 * 
 	 * @param toSort
-	 *            the array to sort
+	 *			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Cocktail_sort
 	 */
 	public static void cocktailSort(Sortable[] toSort) {
@@ -220,77 +219,60 @@ public class SortingUtils {
 			}
 		} while (swapped);
 	}
-	
+
 	/**
 	 * Sort an array by scanning it to find the smallest element and to put it in the front.
-	 * Average case: O(N^2)
+	 * Average case performance: O(n²)
 	 * 
 	 * @param toSort
-	 *    		array to be sorted.
-	 * 
+	 * 			the array to sort
 	 * @see http://en.wikipedia.org/wiki/Selection_sort
 	 */
-	 
-	 public static void selectionsort( Comparable[] toSort ) {
-        
-        	int N = toSort.length;
-        
-        	for( int i = 0; i < N; i++ ) {
-            
-            		int min = i;
-            
-            		for( int j = i + 1; j < N; j++ ) {
-                
-                		if( toSort[ j ].compareTo( toSort[ min ] ) == -1 )
-                    			min = j;
-            		}
-            
-            	Comparable temp = toSort[ i ];
-            	toSort[ i ] = toSort[ min ];
-            	toSort[ min ] = temp;
-            
-        	}
-        
-        
+	public static void selectionSort(Sortable[] toSort) {
+		for (int j = 0; j < toSort.length - 1; j++) {
+			int min = j;
+			for (int i = 0; i < toSort.length; i++) {
+				if (toSort[i].sortValue() < toSort[min].sortValue()) {
+					min = i;
+				}
+			}
+			if (min != j) {
+				ArrayUtils.swap(j, min, toSort);
+			}
+		}
+	}
 
-    	}
-    	
-    	/**
-    	 * Sorts an array similarly to Insertion Sort, but uses Knuth gap sequences.
-    	 * Average case: Dependent on gap seequences. With Knuth gap sequences, O(N^5/3)
-    	 * 
-    	 * @param toSort
-    	 * 		array to be sorted.
-    	 * 
-    	 * @see http://en.wikipedia.org/wiki/Shellsort
-    	 */
-    	 
-    	  public static Comparable[] shellsort( Comparable[] toSort ) {
-        
-        	int N = toSort.length;
-        
-        	int h = 1;
-        
-        	while( h < N / 3 )
-            		h = 3 * h + 1;
-        
-        	while( h >= 1 ) {
-            
-            		for( int i = h; i < N; i++ ) {
-                
-                		for( int j = i; j >= h && toSort[ j ].compareTo( toSort[ j - h ] ) == -1; j -= h ) {
-                    
-                    			Comparable temp = toSort[ j ];
-                    			toSort[ i ] = toSort[ j - h ];
-                   	 		toSort[ j - h ] = temp;
-                    
-                		}
-                    
-            		}
-            
-            		h /= 3;
-        	}
-   
-    	}
-
+	/**
+	 * Sorts an array using an internal insertion sort with a gap sequence.
+	 * Average case performance: With Knuth's gap sequence, O(n^5/4)
+	 * 
+	 * @param toSort
+	 *			the array to sort
+	 * @see http://en.wikipedia.org/wiki/Shellsort
+	 */
+	public static void shellsort(Sortable[] toSort) {
+		Object[] gaps = new Integer[0];
+		for (int k = 1, c = 0;  c < (toSort.length / 3); k++) {
+			gaps = ArrayUtils.append(c, gaps);
+			c = (int) ((Math.pow(k, 3) - 1) / 2);
+		}
+		for (Object gap_o : gaps) {
+			int gap = (Integer) gap_o;
+			for (int i = gap; i < toSort.length; i++) {
+				Sortable tmp = toSort[i];
+				int j;
+				for (j = i; j >= gap && toSort[j - gap].sortValue() > tmp.sortValue(); j -= gap)
+					toSort[j] = toSort[j - gap];
+				toSort[j] = tmp;
+			}
+		}
+	}
+	
+	public static Sortable[] toSortableArray(Object[] data) {
+		Sortable[] ret = new Sortable[data.length];
+		for (int i = 0; i < data.length; i++) {
+			ret[i] = (Sortable) data[i];
+		}
+		return ret;
+	}
 }
